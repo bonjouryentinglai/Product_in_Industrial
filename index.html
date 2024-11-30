@@ -36,7 +36,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+            background: rgba(0, 0, 0, 0.3); /* 半透明黑色背景 */
             opacity: 0;
             transition: opacity 0.45s ease; /* 讓背景變暗過渡 */
             pointer-events: none; /* 讓背景層不會影響到其他互動 */
@@ -103,7 +103,7 @@
             background: white;
             color: #333;
             padding: 20px;
-            border: 2px solid #009688;
+            border: 2px solid #555;
             border-radius: 12px;
             display: none;
             z-index: 10;
@@ -183,7 +183,9 @@
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
                 const rect = hotspot.getBoundingClientRect();
-                const tooltipX = Math.min(window.innerWidth - 320 , e.pageX + 50);
+                /*const tooltipX = Math.min((window.innerWidth - 320)  , e.pageX + 50);*/
+                const tooltipX = e.pageX + 320 + 50 > window.innerWidth ? e.pageX - 50 - 320 :e.pageX + 50;
+                
                 const tooltipY = Math.min(window.innerHeight - 600, e.pageY);
 
                 // 顯示產品資訊
