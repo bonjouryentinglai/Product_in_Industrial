@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,15 +7,24 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden;
             font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
         }
         .container {
             position: relative;
-            width: 100%;
-            height: 100vh;
+            width: 80%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
             background: url('https://bonjouryentinglai.github.io/Product_in_Industrial/IMG_1190.PNG') no-repeat center center;
-            background-size: cover;
+            background-size: contain;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
         }
         .hotspot {
             position: absolute;
@@ -29,38 +37,74 @@
         }
         .tooltip {
             position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 8px;
+            background: #fff;
+            color: #333;
+            padding: 15px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            white-space: nowrap;
             display: none;
             z-index: 10;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .tooltip img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .tooltip h3 {
+            margin: 0 0 10px;
+            font-size: 1.2em;
+        }
+        .tooltip p {
+            margin: 0;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="hotspot" style="top: 30%; left: 40%;" data-tooltip="場域1：產品A適用於機械臂工作區"></div>
-        <div class="hotspot" style="top: 50%; left: 60%;" data-tooltip="場域2：產品B專注於品質檢測區"></div>
-        <div class="hotspot" style="top: 70%; left: 20%;" data-tooltip="場域3：產品C提升能源管理效率"></div>
-        <div class="hotspot" style="top: 40%; left: 80%;" data-tooltip="場域4：產品D適用於物流與運輸管理"></div>
+        <div class="hotspot" style="top: 30%; left: 40%;" 
+             data-name="產品A" 
+             data-description="適用於機械臂工作區，提升生產效率。" 
+             data-image="https://via.placeholder.com/300"></div>
+        <div class="hotspot" style="top: 50%; left: 60%;" 
+             data-name="產品B" 
+             data-description="專注於品質檢測，提供高精準度的即時分析。" 
+             data-image="https://via.placeholder.com/300"></div>
+        <div class="hotspot" style="top: 70%; left: 20%;" 
+             data-name="產品C" 
+             data-description="提升能源管理效率，節能減碳。" 
+             data-image="https://via.placeholder.com/300"></div>
+        <div class="hotspot" style="top: 40%; left: 80%;" 
+             data-name="產品D" 
+             data-description="適用於物流與運輸管理，優化配送流程。" 
+             data-image="https://via.placeholder.com/300"></div>
     </div>
-    <div id="tooltip" class="tooltip"></div>
+    <div id="tooltip" class="tooltip">
+        <img src="" alt="Product Image" id="tooltipImage">
+        <h3 id="tooltipTitle"></h3>
+        <p id="tooltipDescription"></p>
+    </div>
     <script>
         const hotspots = document.querySelectorAll('.hotspot');
         const tooltip = document.getElementById('tooltip');
+        const tooltipImage = document.getElementById('tooltipImage');
+        const tooltipTitle = document.getElementById('tooltipTitle');
+        const tooltipDescription = document.getElementById('tooltipDescription');
 
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
-                tooltip.textContent = hotspot.getAttribute('data-tooltip');
-                tooltip.style.left = e.pageX + 'px';
-                tooltip.style.top = e.pageY + 'px';
+                tooltipImage.src = hotspot.getAttribute('data-image');
+                tooltipTitle.textContent = hotspot.getAttribute('data-name');
+                tooltipDescription.textContent = hotspot.getAttribute('data-description');
+                tooltip.style.left = e.pageX + 15 + 'px';
+                tooltip.style.top = e.pageY + 15 + 'px';
                 tooltip.style.display = 'block';
             });
             hotspot.addEventListener('mousemove', (e) => {
-                tooltip.style.left = e.pageX + 'px';
-                tooltip.style.top = e.pageY + 'px';
+                tooltip.style.left = e.pageX + 15 + 'px';
+                tooltip.style.top = e.pageY + 15 + 'px';
             });
             hotspot.addEventListener('mouseleave', () => {
                 tooltip.style.display = 'none';
