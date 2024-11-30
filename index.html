@@ -36,7 +36,7 @@
             transform: translate(-50%, -50%);
         }
         .tooltip {
-            position: absolute;
+            position: fixed;
             background: #fff;
             color: #333;
             padding: 15px;
@@ -46,6 +46,7 @@
             z-index: 10;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .tooltip img {
             width: 100%;
@@ -59,6 +60,14 @@
         .tooltip p {
             margin: 0;
             font-size: 0.9em;
+        }
+        .line {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 1px dashed #000;
+            transform-origin: 0% 0%;
+            transition: width 0.5s ease, height 0.5s ease;
         }
     </style>
 </head>
@@ -80,11 +89,12 @@
              data-name="產品D" 
              data-description="適用於物流與運輸管理，優化配送流程。" 
              data-image="https://via.placeholder.com/300"></div>
-    </div>
-    <div id="tooltip" class="tooltip">
-        <img src="" alt="Product Image" id="tooltipImage">
-        <h3 id="tooltipTitle"></h3>
-        <p id="tooltipDescription"></p>
+        <div id="tooltip" class="tooltip">
+            <img src="" alt="Product Image" id="tooltipImage">
+            <h3 id="tooltipTitle"></h3>
+            <p id="tooltipDescription"></p>
+        </div>
+        <div id="line" class="line"></div>
     </div>
     <script>
         const hotspots = document.querySelectorAll('.hotspot');
@@ -92,22 +102,40 @@
         const tooltipImage = document.getElementById('tooltipImage');
         const tooltipTitle = document.getElementById('tooltipTitle');
         const tooltipDescription = document.getElementById('tooltipDescription');
+        const line = document.getElementById('line');
 
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
+                const rect = hotspot.getBoundingClientRect();
+                const tooltipX = Math.min(window.innerWidth - 310, e.pageX + 50);
+                const tooltipY = Math.min(window.innerHeight - 160, e.pageY);
+
+                // Update tooltip content
                 tooltipImage.src = hotspot.getAttribute('data-image');
                 tooltipTitle.textContent = hotspot.getAttribute('data-name');
                 tooltipDescription.textContent = hotspot.getAttribute('data-description');
-                tooltip.style.left = e.pageX + 15 + 'px';
-                tooltip.style.top = e.pageY + 15 + 'px';
+
+                // Position and show tooltip
+                tooltip.style.left = tooltipX + 'px';
+                tooltip.style.top = tooltipY + 'px';
                 tooltip.style.display = 'block';
+
+                // Draw line
+                line.style.left = rect.left + rect.width / 2 + 'px';
+                line.style.top = rect.top + rect.height / 2 + 'px';
+                const lineWidth = tooltipX - rect.left;
+                const lineHeight = tooltipY - rect.top;
+                line.style.width = Math.abs(lineWidth) + 'px';
+                line.style.height = Math.abs(lineHeight) + 'px';
+                line.style.transform = `rotate(${Math.atan2(lineHeight, lineWidth) * 180 / Math.PI}deg)`;
+                line.style.display = 'block';
             });
-            hotspot.addEventListener('mousemove', (e) => {
-                tooltip.style.left = e.pageX + 15 + 'px';
-                tooltip.style.top = e.pageY + 15 + 'px';
-            });
+
             hotspot.addEventListener('mouseleave', () => {
                 tooltip.style.display = 'none';
+                line.style.width = '0';
+                line.style.height = '0';
+                line.style.display = 'none';
             });
         });
     </script>
