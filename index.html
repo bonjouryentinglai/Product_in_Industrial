@@ -28,12 +28,23 @@
         }
         .hotspot {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            border-radius: 50%;
+            font-size: 24px;
+            color: blue;
             cursor: pointer;
             transform: translate(-50%, -50%);
+            animation: blink 1s infinite;
+        }
+        .hotspot:hover {
+            color: red;
+            animation: none;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
         }
         .tooltip {
             position: fixed;
@@ -76,19 +87,19 @@
         <div class="hotspot" style="top: 30%; left: 40%;" 
              data-name="產品A" 
              data-description="適用於機械臂工作區，提升生產效率。" 
-             data-image="https://via.placeholder.com/300"></div>
+             data-image="https://via.placeholder.com/300">&#9733;</div>
         <div class="hotspot" style="top: 50%; left: 60%;" 
              data-name="產品B" 
              data-description="專注於品質檢測，提供高精準度的即時分析。" 
-             data-image="https://via.placeholder.com/300"></div>
+             data-image="https://via.placeholder.com/300">&#9733;</div>
         <div class="hotspot" style="top: 70%; left: 20%;" 
              data-name="產品C" 
              data-description="提升能源管理效率，節能減碳。" 
-             data-image="https://via.placeholder.com/300"></div>
+             data-image="https://via.placeholder.com/300">&#9733;</div>
         <div class="hotspot" style="top: 40%; left: 80%;" 
              data-name="產品D" 
              data-description="適用於物流與運輸管理，優化配送流程。" 
-             data-image="https://via.placeholder.com/300"></div>
+             data-image="https://via.placeholder.com/300">&#9733;</div>
         <div id="tooltip" class="tooltip">
             <img src="" alt="Product Image" id="tooltipImage">
             <h3 id="tooltipTitle"></h3>
