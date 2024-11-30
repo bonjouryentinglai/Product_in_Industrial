@@ -14,6 +14,7 @@
             align-items: center;
             min-height: 100vh;
         }
+
         .container {
             position: relative;
             width: 80%;
@@ -25,10 +26,11 @@
             border-radius: 10px;
             overflow: hidden;
         }
+
         .hotspot {
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background-color: white;
             border: 3px solid white;
             border-radius: 50%;
@@ -36,11 +38,23 @@
             cursor: pointer;
             transform: translate(-50%, -50%);
         }
+
         .hotspot:hover {
-            background-color: red;
-            border-color: red;
             animation: none;
         }
+
+        .hotspot::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 25px;
+            height: 25px;
+            border: 2px solid white;
+            border-radius: 50%;
+            animation: ring 1.5s infinite;
+        }
+
         @keyframes pulse {
             0%, 100% {
                 box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
@@ -49,41 +63,62 @@
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             }
         }
+
+        @keyframes ring {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
         .tooltip {
             position: absolute;
-            background: #fff;
+            background: white;
             color: #333;
             padding: 15px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 10px;
             display: none;
             z-index: 10;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
         }
+
         .tooltip img {
             width: 100%;
-            border-radius: 5px;
+            border-radius: 10px;
             margin-bottom: 10px;
         }
+
         .tooltip h3 {
             margin: 0 0 10px;
             font-size: 1.2em;
+            color: #555;
         }
+
         .tooltip p {
             margin: 0;
             font-size: 0.9em;
+            color: #777;
         }
-        .line {
-            position: absolute;
-            height: 2px;
-            background: black;
-            z-index: 5;
+
+        .tooltip.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- 四個產品的標記點 -->
         <div class="hotspot" style="top: 30%; left: 40%;" 
              data-name="產品A" 
              data-description="適用於機械臂工作區，提升生產效率。" 
@@ -92,12 +127,20 @@
              data-name="產品B" 
              data-description="專注於品質檢測，提供高精準度的即時分析。" 
              data-image="https://via.placeholder.com/300"></div>
+        <div class="hotspot" style="top: 70%; left: 20%;" 
+             data-name="產品C" 
+             data-description="提升能源管理效率，助力節能減排。" 
+             data-image="https://via.placeholder.com/300"></div>
+        <div class="hotspot" style="top: 40%; left: 80%;" 
+             data-name="產品D" 
+             data-description="適用於物流與運輸管理，實現全流程追蹤。" 
+             data-image="https://via.placeholder.com/300"></div>
+        <!-- 產品資訊框 -->
         <div id="tooltip" class="tooltip">
             <img src="" alt="Product Image" id="tooltipImage">
             <h3 id="tooltipTitle"></h3>
             <p id="tooltipDescription"></p>
         </div>
-        <div id="line" class="line"></div>
     </div>
     <script>
         const hotspots = document.querySelectorAll('.hotspot');
@@ -105,45 +148,28 @@
         const tooltipImage = document.getElementById('tooltipImage');
         const tooltipTitle = document.getElementById('tooltipTitle');
         const tooltipDescription = document.getElementById('tooltipDescription');
-        const line = document.getElementById('line');
 
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
                 const rect = hotspot.getBoundingClientRect();
-                const tooltipX = Math.min(window.innerWidth - 310, rect.right + 200);
-                const tooltipY = Math.min(window.innerHeight - 160, rect.top + 100);
-
-                // 虛線動畫
-                const startX = rect.left + rect.width / 2;
-                const startY = rect.top + rect.height / 2;
-                const endX = tooltipX - 100;
-                const endY = tooltipY - 50;
-
-                line.style.left = startX + 'px';
-                line.style.top = startY + 'px';
-                line.style.width = '0';
-                line.style.height = '0';
-                line.style.display = 'block';
-                line.style.transition = 'none';
-
-                setTimeout(() => {
-                    line.style.width = endX - startX + 'px';
-                    line.style.height = endY - startY + 'px';
-                    line.style.transition = 'width 0.5s ease, height 0.5s ease';
-                }, 10);
+                const tooltipX = Math.min(window.innerWidth - 320, rect.right + 20);
+                const tooltipY = Math.min(window.innerHeight - 180, rect.top + 20);
 
                 // 顯示產品資訊
                 tooltip.style.left = tooltipX + 'px';
                 tooltip.style.top = tooltipY + 'px';
                 tooltip.style.display = 'block';
+                tooltip.classList.add('active');
                 tooltipImage.src = hotspot.getAttribute('data-image');
                 tooltipTitle.textContent = hotspot.getAttribute('data-name');
                 tooltipDescription.textContent = hotspot.getAttribute('data-description');
             });
 
             hotspot.addEventListener('mouseleave', () => {
-                tooltip.style.display = 'none';
-                line.style.display = 'none';
+                tooltip.classList.remove('active');
+                setTimeout(() => {
+                    tooltip.style.display = 'none';
+                }, 300);
             });
         });
     </script>
