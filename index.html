@@ -46,8 +46,8 @@
         .hotspot::after {
             content: '';
             position: absolute;
-            top: -5px;
-            left: -5px;
+            top: 0;
+            left: 0;
             width: 25px;
             height: 25px;
             border: 2px solid white;
@@ -58,9 +58,11 @@
         @keyframes pulse {
             0%, 100% {
                 box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+                background-color: white;
             }
             50% {
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+                background-color: rgba(255, 255, 255, 0.6);
             }
         }
 
@@ -156,7 +158,7 @@
                 const tooltipY = Math.min(window.innerHeight - 180, rect.top + 20);
 
                 // 顯示產品資訊
-                tooltip.style.left = tooltipX + 'px';
+                tooltip.style.left = (tooltipX < 0 ? 20 : tooltipX) + 'px';
                 tooltip.style.top = tooltipY + 'px';
                 tooltip.style.display = 'block';
                 tooltip.classList.add('active');
