@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Factory Map</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('IMG_1190.png') no-repeat center center;
+            background-size: cover;
+        }
+        .hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            white-space: nowrap;
+            display: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hotspot" style="top: 30%; left: 40%;" data-tooltip="場域1：產品A適用於機械臂工作區"></div>
+        <div class="hotspot" style="top: 50%; left: 60%;" data-tooltip="場域2：產品B專注於品質檢測區"></div>
+        <div class="hotspot" style="top: 70%; left: 20%;" data-tooltip="場域3：產品C提升能源管理效率"></div>
+        <div class="hotspot" style="top: 40%; left: 80%;" data-tooltip="場域4：產品D適用於物流與運輸管理"></div>
+    </div>
+    <div id="tooltip" class="tooltip"></div>
+    <script>
+        const hotspots = document.querySelectorAll('.hotspot');
+        const tooltip = document.getElementById('tooltip');
+
+        hotspots.forEach(hotspot => {
+            hotspot.addEventListener('mouseenter', (e) => {
+                tooltip.textContent = hotspot.getAttribute('data-tooltip');
+                tooltip.style.left = e.pageX + 'px';
+                tooltip.style.top = e.pageY + 'px';
+                tooltip.style.display = 'block';
+            });
+            hotspot.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 'px';
+                tooltip.style.top = e.pageY + 'px';
+            });
+            hotspot.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
