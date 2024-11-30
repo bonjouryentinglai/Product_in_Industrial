@@ -38,7 +38,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
             opacity: 0;
-            transition: opacity 0.3s ease; /* 讓背景變暗過渡 */
+            transition: opacity 0.8s ease; /* 讓背景變暗過渡 */
             pointer-events: none; /* 讓背景層不會影響到其他互動 */
         }
 
@@ -158,8 +158,8 @@
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
                 const rect = hotspot.getBoundingClientRect();
-                const tooltipX = Math.min(window.innerWidth - 320, e.pageX + 50);
-                const tooltipY = Math.min(window.innerHeight - 300, e.pageY);
+                const tooltipX = Math.min(window.innerWidth - 600, e.pageX + 50);
+                const tooltipY = Math.min(window.innerHeight - 6000, e.pageY);
 
                 // 顯示產品資訊
                 tooltip.style.left = tooltipX + 'px';
