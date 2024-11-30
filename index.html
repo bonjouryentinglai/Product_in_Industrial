@@ -99,7 +99,7 @@
 
         /* 讓 tooltip 具有更多浮動效果 */
         .tooltip {
-            position: absolute;
+            position: fixed;
             background: white;
             color: #333;
             padding: 20px;
@@ -111,14 +111,14 @@
             width: 320px;
             transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
             opacity: 0;
-            /*transform: scale(0.9) translateY(10px);*/
+            transform: scale(0.9) translateY(10px);
         }
 
         /* 輕微的彈跳效果 */
         .tooltip.active {
             display: block;
             opacity: 1;
-            /*transform: scale(1) translateY(0);*/
+            transform: scale(1) translateY(0);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
