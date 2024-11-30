@@ -36,7 +36,7 @@
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
-            animation: pulse 2s infinite; 
+            animation: pulse 1s infinite; 
         }
 
         .hotspot:hover {
@@ -52,7 +52,6 @@
             height: 15px;
             border: 2px solid white;
             border-radius: 50%;
-            animation: ring 1.5s infinite;
         }
 
         @keyframes pulse {
@@ -154,8 +153,8 @@
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
                 const rect = hotspot.getBoundingClientRect();
-                const tooltipX = Math.min(window.innerWidth - 320, rect.right + 20);
-                const tooltipY = Math.min(window.innerHeight - 180, rect.top + 20);
+                const tooltipX = Math.min(window.innerWidth - 320, e.pageX + 50);
+                const tooltipY = Math.min(window.innerHeight - 180, e.pageY);
 
                 // 顯示產品資訊
                 tooltip.style.left = (tooltipX < 0 ? 20 : tooltipX) + 'px';
