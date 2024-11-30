@@ -38,7 +38,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
             opacity: 0;
-            transition: opacity 0.6s ease; /* 讓背景變暗過渡 */
+            transition: opacity 0.45s ease; /* 讓背景變暗過渡 */
             pointer-events: none; /* 讓背景層不會影響到其他互動 */
         }
 
@@ -109,16 +109,16 @@
             z-index: 10;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             width: 320px;
-            transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
             opacity: 0;
-            transform: scale(0.9) translateY(10px);
+            /*transform: scale(0.9) translateY(10px);*/
         }
 
         /* 輕微的彈跳效果 */
         .tooltip.active {
             display: block;
             opacity: 1;
-            transform: scale(1) translateY(0);
+            /*transform: scale(1) translateY(0);*/
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
