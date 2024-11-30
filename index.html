@@ -43,16 +43,6 @@
             animation: none;
         }
 
-        .hotspot::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 15px;
-            height: 15px;
-            border: 2px solid white;
-            border-radius: 50%;
-        }
 
         @keyframes pulse {
             0%, 100% {
@@ -77,19 +67,17 @@
         }
 
         .tooltip {
-            position: absolute;
-            background: white;
+            pposition: fixed;
+            background: #fff;
             color: #333;
             padding: 15px;
             border: 1px solid #ddd;
-            border-radius: 10px;
+            border-radius: 5px;
             display: none;
             z-index: 10;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 300px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            opacity: 0;
-            transform: translateY(10px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .tooltip img {
