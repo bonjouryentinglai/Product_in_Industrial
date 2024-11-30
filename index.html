@@ -145,10 +145,9 @@
                 const tooltipY = Math.min(window.innerHeight - 180, e.pageY);
 
                 // 顯示產品資訊
-                tooltip.style.left = (tooltipX < 0 ? 20 : tooltipX) + 'px';
+                tooltip.style.left = tooltipX + 'px';
                 tooltip.style.top = tooltipY + 'px';
                 tooltip.style.display = 'block';
-                tooltip.classList.add('active');
                 tooltipImage.src = hotspot.getAttribute('data-image');
                 tooltipTitle.textContent = hotspot.getAttribute('data-name');
                 tooltipDescription.textContent = hotspot.getAttribute('data-description');
