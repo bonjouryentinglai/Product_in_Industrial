@@ -25,6 +25,11 @@
             border: 2px solid #ddd;
             border-radius: 10px;
             overflow: hidden;
+            transition: filter 0.3s ease; /* 加入過渡效果 */
+        }
+
+        .container.dark {
+            filter: brightness(0.7); /* 當滑鼠懸停時將亮度調暗 */
         }
 
         .hotspot {
@@ -147,10 +152,13 @@
                 tooltipImage.src = hotspot.getAttribute('data-image');
                 tooltipTitle.textContent = hotspot.getAttribute('data-name');
                 tooltipDescription.textContent = hotspot.getAttribute('data-description');
+
+                document.querySelector('.container').classList.add('dark');
             });
 
             hotspot.addEventListener('mouseleave', () => {
                 tooltip.classList.remove('active');
+                document.querySelector('.container').classList.remove('dark');
                 setTimeout(() => {
                     tooltip.style.display = 'none';
                 }, 300);
