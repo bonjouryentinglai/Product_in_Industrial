@@ -183,13 +183,14 @@
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
                 const rect = hotspot.getBoundingClientRect();
-                const tooltipX = Math.min(window.innerWidth - 400, e.pageX + 50);
+                const tooltipX = Math.min((window.innerWidth - 320) < e.pageX ? e.pageX - 350:(window.innerWidth - 320) , e.pageX + 50);
                 const tooltipY = Math.min(window.innerHeight - 600, e.pageY);
 
                 // 顯示產品資訊
                 tooltip.style.left = tooltipX + 'px';
                 tooltip.style.top = tooltipY + 'px';
                 tooltip.style.display = 'block';
+                tooltip.classList.add('active');
                 tooltipImage.src = hotspot.getAttribute('data-image');
                 tooltipTitle.textContent = hotspot.getAttribute('data-name');
                 tooltipDescription.textContent = hotspot.getAttribute('data-description');
