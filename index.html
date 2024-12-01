@@ -179,7 +179,8 @@
         const tooltipImage = document.getElementById('tooltipImage');
         const tooltipTitle = document.getElementById('tooltipTitle');
         const tooltipDescription = document.getElementById('tooltipDescription');
-
+        let isTooltipHovered = false; // 用來追蹤滑鼠是否在 tooltip 上
+        
         hotspots.forEach(hotspot => {
             hotspot.addEventListener('mouseenter', (e) => {
                 const rect = hotspot.getBoundingClientRect();
@@ -201,11 +202,30 @@
             });
 
             hotspot.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('active');
-                document.querySelector('.container').classList.remove('dark');
                 setTimeout(() => {
-                    tooltip.style.display = 'none';
+                    if (!isTooltipHovered) { // 檢查滑鼠是否在 tooltip 上
+                        tooltip.classList.remove('active');
+                        tooltip.style.display = 'none';
+                        document.querySelector('.container').classList.remove('dark');
+                    }
                 }, 300);
+            });
+
+            // 當滑鼠移到 tooltip 上時，保持 tooltip 顯示
+            tooltip.addEventListener('mouseenter', () => {
+                isTooltipHovered = true;
+            });
+        
+            // 當滑鼠離開 tooltip 時，檢查是否需要隱藏
+            tooltip.addEventListener('mouseleave', () => {
+                isTooltipHovered = false;
+                setTimeout(() => {
+                    if (!isTooltipHovered) {
+                        tooltip.classList.remove('active');
+                        tooltip.style.display = 'none';
+                        document.querySelector('.container').classList.remove('dark');
+                    }
+                }, 100);
             });
         });
     </script>
