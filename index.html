@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Factory Map</title>
+    <title>ADAT Industrial AI+ Solutions</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
+
+        /* Header Section */
+        .header {
+            width: 100%;
+            text-align: center;
+            background-color: #001f3f;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            margin: 10px 0 0;
+        }
+
 
         .container {
             position: relative;
@@ -145,9 +166,23 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* Footer Section */
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: #001f3f;
+            color: white;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>ADAT Industrial AI+ Solutions</h1>
+        <p>Revolutionizing the Industrial Field with Cutting-Edge AI Technology</p>
+    </div>
     <div class="container">
         <!-- 四個產品的標記點 -->
         <div class="hotspot" style="top: 30%; left: 40%;" 
@@ -172,6 +207,9 @@
             <h3 id="tooltipTitle"></h3>
             <p id="tooltipDescription"></p>
         </div>
+    </div>
+    <div class="footer">
+        &copy; 2024 ADAT Technology. All Rights Reserved.
     </div>
     <script>
         const hotspots = document.querySelectorAll('.hotspot');
